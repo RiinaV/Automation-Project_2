@@ -1,13 +1,10 @@
-/**
- * This is an example file and approach for POM in Cypress
- */
 import IssueModal from "../../pages/IssueModal";
 
-describe('Issue delete', () => {
+describe('Issue deletion', () => {
   beforeEach(() => {
     cy.visit('/');
     cy.url().should('eq', `${Cypress.env('baseUrl')}project/board`).then((url) => {
-    //open issue detail modal with title from line 16  
+    //open issue detail modal with title from line 13  
     cy.contains(issueTitle).click();
     });
   });
@@ -16,10 +13,22 @@ describe('Issue delete', () => {
   const issueTitle = 'This is an issue of type: Task.';
 
   it('Should delete issue successfully', () => {
-    //add steps to delete issue
+    //Click on delete icon and assert that the deletion confirmation window is visible
+    IssueModal.clickDeleteButton();
+    IssueModal.confirmDeletion();
+
+    //Assert that the issue is no longer displayed on the Jira board
+    IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle)
   });
 
   it('Should cancel deletion process successfully', () => {
-    //add steps to start deletion proces but cancel it
+    //Click on delete icon and assert that the deletion confirmation window is visible
+    IssueModal.clickDeleteButton();
+    IssueModal.cancelDeletion();
+    IssueModal.closeDetailModal()
+
+    //Assert that issue is still visible on the Jira board
+    IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle)
+
   });
 });
