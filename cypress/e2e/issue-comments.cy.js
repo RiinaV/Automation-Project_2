@@ -12,15 +12,15 @@ describe("Issue comments creating, editing and deleting", () => {
   function clickSaveButtonAndVerify() {
     cy.contains("button", "Cancel").should("be.visible");
     cy.contains("button", "Save")
-        .should("be.visible")
-        .click()
-        .should("not.exist");    
+      .should("be.visible")
+      .click()
+      .should("not.exist");
   }
 
   const getIssueDetailsModal = () =>
     cy.get('[data-testid="modal:issue-details"]');
 
-  it.only("Should create, update and delete a comment successfully", () => {
+  it("Should create, update and delete a comment successfully", () => {
     const comment = "Happy New Year";
     const editComment = "Merry Christmas";
 
@@ -54,7 +54,7 @@ describe("Issue comments creating, editing and deleting", () => {
       //Assert that Save and Cancel buttons are visible and then save the comment
       //Assert that Save button is not visible anymore
       clickSaveButtonAndVerify();
-      
+
       //Assert that the edited comment is displayed
       cy.get('[data-testid="issue-comment"]')
         .should("contain", "Edit")
@@ -66,7 +66,7 @@ describe("Issue comments creating, editing and deleting", () => {
     });
     //Assert that the delete confirmation dialogue is visible and click on Delete button
     //Assert that Delete button is not visible anymore
-    cy.get('[data-testid="modal:confirm"]').should('be.visible')
+    cy.get('[data-testid="modal:confirm"]').should("be.visible");
     cy.get('[data-testid="modal:confirm"]')
       .contains("button", "Delete comment")
       .click()
