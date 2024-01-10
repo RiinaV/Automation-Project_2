@@ -32,7 +32,7 @@ describe("Issue comments creating, editing and deleting", () => {
 
       //Assert that Save and Cancel buttons are visible and then save the comment
       //Assert that Save button is not visible anymore
-      clickSaveButtonAndVerify;
+      clickSaveButtonAndVerify();
 
       //Assert that the added comment is displayed and 2 comments are now visible
       cy.contains("Add a comment...").should("exist");
@@ -53,11 +53,8 @@ describe("Issue comments creating, editing and deleting", () => {
         .type(editComment);
       //Assert that Save and Cancel buttons are visible and then save the comment
       //Assert that Save button is not visible anymore
-      cy.contains("button", "Cancel").should("be.visible");
-      cy.contains("button", "Save")
-        .should("be.visible")
-        .click()
-        .should("not.exist");
+      clickSaveButtonAndVerify();
+      
       //Assert that the edited comment is displayed
       cy.get('[data-testid="issue-comment"]')
         .should("contain", "Edit")
